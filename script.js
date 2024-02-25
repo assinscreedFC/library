@@ -1,10 +1,22 @@
 const modalContainer = document.querySelector('.modal-container');
 const modalTriggers=document.querySelectorAll(".modal-trigger");
+let rem=document.querySelectorAll(".remove");
+const titre=document.querySelector("#titleInput");
+const author=document.querySelector("#author");
+const page=document.querySelector("#page");
+const read=document.querySelector("#check");
+const section=document.querySelector("section");
+
 
 modalTriggers.forEach( trigger => trigger.addEventListener('click', ()=>togglemodal()));
 
 function togglemodal() {
+    
     modalContainer.classList.toggle("active");    
+    titre.value="";
+    author.value="";
+    page.value="";
+    read.checked=false;
 }
  
  
@@ -35,7 +47,7 @@ class book{
             neww.querySelector('.page').innerHTML="pages: "+this.nbrPage;
             
            if (this.read){
-            
+
            }
             neww.classList.add(this.title);    
     }
@@ -78,11 +90,7 @@ class book{
 //                     console.log("Have you read it ? : "+this.read);   
 //          };    
 // };
-const titre=document.querySelector("#titleInput");
-const author=document.querySelector("#author");
-const page=document.querySelector("#page");
-const read=document.querySelector("#check");
-const section=document.querySelector("section");
+
 let Books=[];
 
 
@@ -99,12 +107,14 @@ let impposible=false;
     }
     });
     if(!impposible){  Books.push( new book(titre.value,author.value,page.value,read.checked));
-        localStorage.setItem(localStorage.length-1,JSON.stringify(Books));
+        localStorage.setItem(localStorage.length,JSON.stringify(Books));
         JSON.parse(localStorage.getItem("book"));
         console.log(Books);
         let to=Books.pop();
         to.card();
-
+        rem= document.querySelectorAll(".remove");
+        rem.forEach(element => {
+            element.addEventListener('click', (you)=>you.target.parentElement.remove());});
         
     //     console.log(localStorage);
     // const clone=document.querySelector(`#bookTemplate`).content.cloneNode(true);
@@ -125,9 +135,13 @@ let impposible=false;
     for (let index = 0; index < localStorage.length-1; index++) {
         let key=localStorage.key(index);
         let addBook=JSON.parse(localStorage.getItem(key));
+        if(addBook[0].title!==undefined){
         console.log(addBook);
 new book(addBook[0].title,addBook[0].author,addBook[0].nbrPage,addBook[0].read).card();
+        }
+        
 }
-
+rem= document.querySelectorAll(".remove");
+rem.forEach(element => {
+    element.addEventListener('click', (you)=>you.target.parentElement.remove());});
 })();
-  

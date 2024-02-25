@@ -19,11 +19,50 @@
       </nav>
     </header>
     <main>
-      <button class="addbook">
+      <button class="addbook modal-btn modal-trigger">
         <span>+ Add Book</span></button
       ><br />
+      <div class="modal-container">
+        <div class="overlay modal-trigger"></div>
+        <div
+          class="modal"
+          role="dialog"
+          aria-labelledby="modalTitle"
+          aria-describedby="dialogDesc"
+        >
+          <button aria-label="close modal" class="close-modal modal-trigger">
+            X
+          </button>
+          <label for="titleInput">Titre</label>
+          <input
+            type="text"
+            name="titleInput"
+            placeholder="Title"
+            id="titleInput"
+            class="inpute"
+          />
+          <label for="author">Auteur(s)</label>
+          <input type="text" placeholder="author" id="author" class="inpute" />
+          <label for="page">nombre de page</label>
+          <input
+            type="number"
+            name="page"
+            class="inpute"
+            id="page"
+            placeholder="page of book"
+          />
+          <label class="material-checkbox">
+            <input type="checkbox" id="check" />
+            <span class="checkmark"></span>
+            Read
+          </label>
+          <!-- <label for="check">reed</label>
+          <input type="checkbox" name="check" id="check" /> -->
+          <button id="submit">Add Book</button>
+        </div>
+      </div>
       <section>
-        <div class="card">
+        <!-- <div class="card">
           <p class="name">"anis"</p>
           <p class="autor">bbkklmnopq</p>
           <p class="page">256</p>
@@ -37,13 +76,23 @@
           <button class="read">read</button>
           <button class="remove">remove</button>
         </div>
+
         <div class="card">
           <p class="name">"anis"</p>
           <p class="autor">bbkklmnopq</p>
           <p class="page">256</p>
           <button class="read">read</button>
           <button class="remove">remove</button>
-        </div>
+        </div> -->
+        <template id="bookTemplate">
+          <div class="card">
+            <p class="name"></p>
+            <p class="autor"></p>
+            <p class="page"></p>
+            <button class="read">read</button>
+            <button class="remove">remove</button>
+          </div>
+        </template>
       </section>
     </main>
     <footer class="footer">

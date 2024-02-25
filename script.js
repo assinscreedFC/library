@@ -8,20 +8,52 @@ function togglemodal() {
 }
  
  
- 
+
  
  
  
  
 class book{
+    
     constructor(title,author, nbrPage, read){
         this.title=title;
         this.author = author; 
         this.nbrPage=nbrPage;
         this.read=read;
+        this.clone = document.querySelector('#bookTemplate').content.cloneNode(true);
+
+    }
+
+    card(){
+        const newClone = this.clone.cloneNode(true);
+            // let clone=temp.content.cloneNode(true);
+            console.log(this.clone);
+            section.appendChild(newClone);
+            const neww=section.lastElementChild;
+            neww.querySelector('.name').innerHTML="Title: "+this.title ;
+            neww.querySelector('.autor').innerHTML="Author :"+this.author;
+            neww.querySelector('.page').innerHTML="pages: "+this.nbrPage;
+            
+           if (this.read){
+            
+           }
+            neww.classList.add(this.title);    
+    }
+
+    removeALL(){
+        const newClone = section.getElementsByClassName(this.title);
+
+        // Convert HTMLCollection to an array for easier manipulation
+        const elementsArray = Array.from(newClone);
+        console.log(elementsArray);
+        // Remove each element
+        elementsArray.forEach(element => {
+            element.remove();
+        });  
     }
 }
- 
+
+
  
  
  
@@ -53,6 +85,7 @@ const read=document.querySelector("#check");
 const section=document.querySelector("section");
 let Books=[];
 
+
 const addBook=document.querySelector("#submit");
 addBook.addEventListener('click',() => setBook());
 
@@ -66,13 +99,21 @@ let impposible=false;
     }
     });
     if(!impposible){  Books.push( new book(titre.value,author.value,page.value,read.checked));
-    const clone=document.querySelector(`#bookTemplate`).content.cloneNode(true);
-        // let clone=temp.content.cloneNode(true);
-        console.log(clone);
-    clone.querySelector('.name').innerHTML=titre.value;
-    clone.querySelector('.autor').innerHTML=author.value;
-    clone.querySelector('.page').innerHTML=page.value;
-    section.appendChild(clone);
+        localStorage.setItem(localStorage.length-1,JSON.stringify(Books));
+        JSON.parse(localStorage.getItem("book"));
+        console.log(Books);
+        let to=Books.pop();
+        to.card();
+
+        
+    //     console.log(localStorage);
+    // const clone=document.querySelector(`#bookTemplate`).content.cloneNode(true);
+    //     // let clone=temp.content.cloneNode(true);
+    //     console.log(clone);
+    // clone.querySelector('.name').innerHTML=titre.value;
+    // clone.querySelector('.autor').innerHTML=author.value;
+    // clone.querySelector('.page').innerHTML=page.value;
+    // section.appendChild(clone);
     
     }else{
 
@@ -80,4 +121,13 @@ let impposible=false;
    
     console.log(Books)
 }
+(function (){
+    for (let index = 0; index < localStorage.length-1; index++) {
+        let key=localStorage.key(index);
+        let addBook=JSON.parse(localStorage.getItem(key));
+        console.log(addBook);
+new book(addBook[0].title,addBook[0].author,addBook[0].nbrPage,addBook[0].read).card();
+}
+
+})();
   

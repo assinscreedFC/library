@@ -56,7 +56,12 @@ class book{
 }
 
 const addBook=document.querySelector("#submit");
-addBook.addEventListener('click',() => setBook());
+const form=document.querySelector( "#form" );
+form.addEventListener('submit',function(e) {
+    e.preventDefault();
+    setBook();
+});
+addBook.addEventListener('submit',(e) =>{e.preventDefault(); ;});
 
 
 function setBook() {
@@ -68,18 +73,24 @@ let impposible=false;
         impposible=true ;
     }
     });
-    if(!impposible){  Books.push( new book(titre.value,author.value,page.value,read.checked));
+   
+    if(!impposible){  
+        Books.push( new book(titre.value,author.value,page.value,read.checked));
         localStorage.setItem("BOOKS",JSON.stringify(Books));
         Books[Books.length-1].card();
-        chekBtn();
+        
         togglemodal();
         p.innerHTML="";
+        chekBtn();
+        
     }else{
         if(p.innerHTML===""){
         p.innerHTML="Ce livre est déja dans votre bibliothèque";
         console.log(":existe deja");
         }
     }
+
+
 }
     
 (function (){
@@ -88,12 +99,14 @@ let impposible=false;
         Books =JSON.parse(localStorage.getItem("BOOKS"));
        
         Books.forEach((e)=>{
+            if(e.title!="")
             new book(e.title,e.author,e.nbrPage,e.read).card();
        });
+       chekBtn();
     }
 
 
-chekBtn();
+
 
 })();
 // btn pour enlever une  carte rem et checkit pour read

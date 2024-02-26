@@ -33,36 +33,53 @@
           <button aria-label="close modal" class="close-modal modal-trigger">
             X
           </button>
-          <div class="erreur">
-            <label for="titleInput">Titre</label>
-            <input
-              type="text"
-              name="titleInput"
-              placeholder="Title"
-              id="titleInput"
-              class="inpute"
-            />
-            <p class="para"></p>
-          </div>
-          <label for="author">Auteur(s)</label>
-          <input type="text" placeholder="author" id="author" class="inpute" />
-          <label for="page">nombre de page</label>
-          <input
-            type="number"
-            name="page"
-            class="inpute"
-            id="page"
-            placeholder="page of book"
-            minlength="1"
-          />
-          <label class="material-checkbox">
-            <input type="checkbox" id="check" />
-            <span class="checkmark"></span>
-            Read
-          </label>
-          <!-- <label for="check">reed</label>
+          <form id="form">
+            <div class="erreur">
+              <label for="titleInput">Titre</label>
+              <input
+                type="text"
+                name="titleInput"
+                placeholder="Title"
+                id="titleInput"
+                class="inpute"
+                required
+              />
+              <p class="para TT"></p>
+            </div>
+
+            <div class="erreur">
+              <label for="author">Auteur(s)</label>
+              <input
+                type="text"
+                placeholder="author"
+                id="author"
+                class="inpute"
+                required
+              />
+              <p class="para AA"></p>
+            </div>
+            <div class="erreur">
+              <label for="page">nombre de page</label>
+              <input
+                type="number"
+                name="page"
+                class="inpute"
+                id="page"
+                placeholder="page of book"
+                min="1"
+                required
+              />
+              <p class="para PP"></p>
+            </div>
+            <label class="material-checkbox">
+              <input type="checkbox" id="check" />
+              <span class="checkmark"></span>
+              Read
+            </label>
+            <!-- <label for="check">reed</label>
           <input type="checkbox" name="check" id="check" /> -->
-          <button id="submit">Add Book</button>
+            <button id="submit">Add Book</button>
+          </form>
         </div>
       </div>
       <section>

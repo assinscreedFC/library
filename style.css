@@ -558,24 +558,26 @@ color: #fff;
 
     
 }
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 440px) {
 
-  section{
-    grid-template-columns: repeat(1,1fr);
-    width: 310px;
-    margin: 10px auto;
-    padding: 0px;
-    gap: 40px;
-    
-}
-.footer>p{
-  font-size:20px;
+  
+  .footer>p{
+    font-size:20px;
+  }
 }
 
 
 
-}
-@media screen and (max-width: 395px) {
+  @media screen and (max-width: 395px)
+   {
+    section{
+      grid-template-columns: repeat(1,1fr);
+      width: 310px;
+      margin: 10px auto;
+      padding: 0px;
+      gap: 40px;
+      
+  }
   .footer{
     
     gap: 5px;

@@ -32,7 +32,6 @@ class book{
 
     card(){
         const newClone = this.clone.cloneNode(true);
-            console.log(this.clone);
             section.appendChild(newClone);
             const neww=section.lastElementChild;
             neww.querySelector('.name').innerHTML="Title: "+this.title ;
@@ -48,7 +47,7 @@ class book{
     removeALL(){
         const newClone = section.getElementsByClassName(this.title);
         const elementsArray = Array.from(newClone);
-        console.log(elementsArray);
+
         elementsArray.forEach(element => {
             element.remove();
         });  
@@ -86,7 +85,7 @@ let impposible=false;
     }else{
         if(p.innerHTML===""){
         p.innerHTML="Ce livre est déja dans votre bibliothèque";
-        console.log(":existe deja");
+        
         }
     }
 
@@ -117,7 +116,8 @@ function chekBtn() {
 
     rem.forEach(element => {
     element.addEventListener('click', (you)=>{you.target.parentElement.remove();
-    console.log(you.target.parentElement.classList[1]);
+
+    
     Books=Books.filter((e)=> e.title!=you.target.parentElement.classList[1]);
     localStorage.setItem("BOOKS", JSON.stringify(Books));
     });

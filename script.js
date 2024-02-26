@@ -1,12 +1,11 @@
 const modalContainer = document.querySelector('.modal-container');
 const modalTriggers=document.querySelectorAll(".modal-trigger");
-let rem=document.querySelectorAll(".remove");
 const titre=document.querySelector("#titleInput");
 const author=document.querySelector("#author");
 const page=document.querySelector("#page");
 const read=document.querySelector("#check");
 const section=document.querySelector("section");
-
+let Books=[];
 
 modalTriggers.forEach( trigger => trigger.addEventListener('click', ()=>togglemodal()));
 
@@ -17,13 +16,8 @@ function togglemodal() {
     author.value="";
     page.value="";
     read.checked=false;
-}
- 
- 
 
- 
- 
- 
+}
  
 class book{
     
@@ -38,7 +32,6 @@ class book{
 
     card(){
         const newClone = this.clone.cloneNode(true);
-            // let clone=temp.content.cloneNode(true);
             console.log(this.clone);
             section.appendChild(newClone);
             const neww=section.lastElementChild;
@@ -47,101 +40,74 @@ class book{
             neww.querySelector('.page').innerHTML="pages: "+this.nbrPage;
             
            if (this.read){
-
+                neww.querySelector(".read").classList.add("active");
            }
             neww.classList.add(this.title);    
     }
 
     removeALL(){
         const newClone = section.getElementsByClassName(this.title);
-
-        // Convert HTMLCollection to an array for easier manipulation
         const elementsArray = Array.from(newClone);
         console.log(elementsArray);
-        // Remove each element
         elementsArray.forEach(element => {
             element.remove();
         });  
     }
 }
 
-
- 
- 
- 
- 
- 
- 
- 
- 
-//  function book(title,author, nbrPage, read) {
-            
-//     this.title=title;
-//         this.author = author; 
-//         this.nbrPage=nbrPage;
-//         this.read=read;
-
-//         this.consol=function () {
-//             console.log("Title: "+this.title);
-//             console.log( "Author :"+this.author);
-//             if(this.nbrPage!=undefined){
-//                 console.log("Number of pages : "+this.nbrPage);
-//             }  
-//                     console.log("Have you read it ? : "+this.read);   
-//          };    
-// };
-
-let Books=[];
-
-
 const addBook=document.querySelector("#submit");
 addBook.addEventListener('click',() => setBook());
 
 
 function setBook() {
+    const p=document.querySelector(".para");
+        
 let impposible=false;
     Books.forEach(book=>{
     if(titre.value===book.title) {
         impposible=true ;
-    
     }
     });
     if(!impposible){  Books.push( new book(titre.value,author.value,page.value,read.checked));
-        localStorage.setItem(localStorage.length,JSON.stringify(Books));
-        JSON.parse(localStorage.getItem("book"));
-        console.log(Books);
-        let to=Books.pop();
-        to.card();
-        rem= document.querySelectorAll(".remove");
-        rem.forEach(element => {
-            element.addEventListener('click', (you)=>you.target.parentElement.remove());});
-        
-    //     console.log(localStorage);
-    // const clone=document.querySelector(`#bookTemplate`).content.cloneNode(true);
-    //     // let clone=temp.content.cloneNode(true);
-    //     console.log(clone);
-    // clone.querySelector('.name').innerHTML=titre.value;
-    // clone.querySelector('.autor').innerHTML=author.value;
-    // clone.querySelector('.page').innerHTML=page.value;
-    // section.appendChild(clone);
-    
+        localStorage.setItem("BOOKS",JSON.stringify(Books));
+        Books[Books.length-1].card();
+        chekBtn();
+        togglemodal();
+        p.innerHTML="";
     }else{
-
-    }
-   
-    console.log(Books)
-}
-(function (){
-    for (let index = 0; index < localStorage.length-1; index++) {
-        let key=localStorage.key(index);
-        let addBook=JSON.parse(localStorage.getItem(key));
-        if(addBook[0].title!==undefined){
-        console.log(addBook);
-new book(addBook[0].title,addBook[0].author,addBook[0].nbrPage,addBook[0].read).card();
+        if(p.innerHTML===""){
+        p.innerHTML="Ce livre est déja dans votre bibliothèque";
+        console.log(":existe deja");
         }
-        
+    }
 }
-rem= document.querySelectorAll(".remove");
-rem.forEach(element => {
-    element.addEventListener('click', (you)=>you.target.parentElement.remove());});
+    
+(function (){
+    
+    if(localStorage.getItem('BOOKS') != null) {
+        Books =JSON.parse(localStorage.getItem("BOOKS"));
+       
+        Books.forEach((e)=>{
+            new book(e.title,e.author,e.nbrPage,e.read).card();
+       });
+    }
+
+
+chekBtn();
+
 })();
+// btn pour enlever une  carte rem et checkit pour read
+function chekBtn() {
+    const rem=document.querySelectorAll(".remove");
+    const checkit=document.querySelectorAll(".read");
+    checkit.forEach((btn)=> btn.addEventListener("click" , (BTN)=>{BTN.target.classList.toggle("active");} ));
+
+    rem.forEach(element => {
+    element.addEventListener('click', (you)=>{you.target.parentElement.remove();
+    console.log(you.target.parentElement.classList[1]);
+    Books=Books.filter((e)=> e.title!=you.target.parentElement.classList[1]);
+    localStorage.setItem("BOOKS", JSON.stringify(Books));
+    });
+   
+});
+}

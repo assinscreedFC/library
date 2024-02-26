@@ -504,6 +504,26 @@ color: #fff;
     background-color: #39bda7;
     transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
   }
+.erreur{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.erreur >p{
+  font-size: 1rem;
+  text-align: center;
+  color: #ff4538;
+}
+
+.read{
+  background:#ff356e ;
+}
+
+.read.active{
+  background: #39bda7;
+}
 
 
 
@@ -537,4 +557,33 @@ color: #fff;
     }
 
     
+}
+@media screen and (max-width: 460px) {
+
+  section{
+    grid-template-columns: repeat(1,1fr);
+    width: 310px;
+    margin: 10px auto;
+    padding: 0px;
+    gap: 40px;
+    
+}
+.footer>p{
+  font-size:20px;
+}
+
+
+
+}
+@media screen and (max-width: 395px) {
+  .footer{
+    
+    gap: 5px;
+    
+  }
+  .footer>p{
+    font-size:16px;
+  }
+  
+
 }

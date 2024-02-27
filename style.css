@@ -466,6 +466,7 @@ color: #fff;
     z-index: 1;
   }
   
+  
   #submit:before {
     content: "";
     position: absolute;
@@ -530,6 +531,7 @@ color: #fff;
 }
 
 .read.active{
+  
   background: #39bda7;
 }
 

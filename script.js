@@ -40,6 +40,9 @@ class book{
             
            if (this.read){
                 neww.querySelector(".read").classList.add("active");
+                neww.querySelector(".read").innerHTML="Read";
+           }else{
+            neww.querySelector(".read").innerHTML="Not read";
            }
             neww.classList.add(this.title);    
     }
@@ -88,8 +91,6 @@ let impposible=false;
         
         }
     }
-
-
 }
 
 (function (){
@@ -104,23 +105,38 @@ let impposible=false;
        chekBtn();
     }
 
-
-
-
 })();
-// btn pour enlever une  carte rem et checkit pour read
+// btn pour enlever une  carte rem et checkit pour read 
 function chekBtn() {
     const rem=document.querySelectorAll(".remove");
     const checkit=document.querySelectorAll(".read");
-    checkit.forEach((btn)=> btn.addEventListener("click" , (BTN)=>{BTN.target.classList.toggle("active");} ));
+    checkit.forEach((btn)=> btn.addEventListener("click" , (BTN)=>{BTN.target.classList.toggle("active")
+    if(BTN.target.classList.contains("active")){
+    BTN.target.innerHTML="Read";
+     Books.forEach((e)=>{if(e.title==BTN.target.parentElement.classList[1]){
+            e.read=true;
+
+        }});
+       
+    } else{
+        BTN.target.innerHTML="Not read";
+        Books.forEach((e)=>{if(e.title==BTN.target.parentElement.classList[1]){
+            e.read=false;
+
+        }});
+     }
+     
+      localStorage.setItem("BOOKS", JSON.stringify(Books));
+    
+    ;} ));
 
     rem.forEach(element => {
-    element.addEventListener('click', (you)=>{you.target.parentElement.remove();
+        element.addEventListener('click', (you)=>{you.target.parentElement.remove();
 
     
-    Books=Books.filter((e)=> e.title!=you.target.parentElement.classList[1]);
-    localStorage.setItem("BOOKS", JSON.stringify(Books));
-    });
+        Books=Books.filter((e)=> e.title!=you.target.parentElement.classList[1]);
+        localStorage.setItem("BOOKS", JSON.stringify(Books));
+        });
    
-});
+    });
 }
